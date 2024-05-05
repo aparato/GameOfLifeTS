@@ -1,0 +1,14 @@
+{
+  "name": "gameoflifets",
+  "version": "1.0.0",
+  "description": "An implementation of Conway's Game Of Life in Typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "aparato",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
