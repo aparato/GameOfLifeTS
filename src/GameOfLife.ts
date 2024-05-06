@@ -8,12 +8,16 @@ class GameOfLife {
     this.columns = columns;
   }
 
-  private getValue(row: number, col: number): number {
+  getValue(row: number, col: number): number {
     try {
       return this.board[row][col];
     } catch {
       return 0;
     }
+  }
+
+  setValue(row: number, col: number, val: number) {
+    this.board[row][col] = val;
   }
 
   private countNeighbors(row: number, col: number): number {

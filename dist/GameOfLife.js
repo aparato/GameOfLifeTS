@@ -13,6 +13,9 @@ class GameOfLife {
             return 0;
         }
     }
+    setValue(row, col, val) {
+        this.board[row][col] = val;
+    }
     countNeighbors(row, col) {
         let count = 0;
         count += this.getValue(row - 1, col);

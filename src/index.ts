@@ -41,6 +41,7 @@ if (canvas) {
   throw new Error("Stuff");
 }
 
+
 const context = canvas.getContext("2d")
 
 const ROWS = Math.floor(canvas.height / CELL_SIZE);
@@ -48,6 +49,35 @@ const COLUMNS = Math.floor(canvas.width / CELL_SIZE);
 
 const gof = new GameOfLife(ROWS, COLUMNS);
 gof.initialize();
+
+const getCursorPosition = (canvas: HTMLCanvasElement, event: any, gameOfLife: GameOfLife) => {
+    const rect = canvas.getBoundingClientRect()
+    const row = Math.floor((event.clientY - rect.top) / CELL_SIZE);
+    const col = Math.floor((event.clientX - rect.left) / CELL_SIZE);
+    gameOfLife.setValue(row, col, 1);
+    return [
+        row,
+        col
+    ];
+};
+
+let isDown = false;
+
+canvas.addEventListener('mousedown', (e) => {
+    isDown = true;
+    console.log(`Mousedown - ${isDown}`)
+});
+
+canvas.addEventListener('mouseup', (e) => {
+    isDown = false;
+    console.log(`Mouseup - ${isDown}`)
+})
+
+canvas.addEventListener('mousemove', function(e) {
+    if(!isDown) return;
+    console.log(`mousemove ${isDown}`);
+    getCursorPosition(canvas, e, gof);
+})
 
 // draw once
 const draw = (surface: CanvasRenderingContext2D | null, board: number[][]): void => {
