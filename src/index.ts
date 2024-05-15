@@ -29,7 +29,7 @@ const COLOR_PALETTES = [
   ],
 ];
 const COLOR_PALETTE = COLOR_PALETTES[0];
-const CELL_SIZE = 6;
+const CELL_SIZE = 10;
 
 const canvas: HTMLCanvasElement | null = document.querySelector("#board");
 const ctx = canvas?.getContext("2d");
@@ -51,52 +51,52 @@ const gof = new GameOfLife(ROWS, COLUMNS);
 gof.initialize();
 
 const getCursorPosition = (canvas: HTMLCanvasElement, event: any, gameOfLife: GameOfLife) => {
-    const rect = canvas.getBoundingClientRect()
-    const row = Math.floor((event.clientY - rect.top) / CELL_SIZE);
-    const col = Math.floor((event.clientX - rect.left) / CELL_SIZE);
-    gameOfLife.setValue(row, col, 1);
-    return [
-        row,
-        col
-    ];
+  const rect = canvas.getBoundingClientRect()
+  const row = Math.floor((event.clientY - rect.top) / CELL_SIZE);
+  const col = Math.floor((event.clientX - rect.left) / CELL_SIZE);
+  gameOfLife.setValue(row, col, 1);
+  return [
+    row,
+    col
+  ];
 };
 
 let isDown = false;
 
 canvas.addEventListener('mousedown', (e) => {
-    isDown = true;
-    console.log(`Mousedown - ${isDown}`)
+  isDown = true;
+  console.log(`Mousedown - ${isDown}`)
 });
 
 canvas.addEventListener('mouseup', (e) => {
-    isDown = false;
-    console.log(`Mouseup - ${isDown}`)
+  isDown = false;
+  console.log(`Mouseup - ${isDown}`)
 })
 
 canvas.addEventListener('mousemove', function(e) {
-    if(!isDown) return;
-    console.log(`mousemove ${isDown}`);
-    getCursorPosition(canvas, e, gof);
+  if (!isDown) return;
+  console.log(`mousemove ${isDown}`);
+  getCursorPosition(canvas, e, gof);
 })
 
 // draw once
 const draw = (surface: CanvasRenderingContext2D | null, board: number[][]): void => {
-    if(!surface) {
-        return;
-    }
+  if (!surface) {
+    return;
+  }
 
-    for(let i = 0; i < board.length; i++) {
-      for(let j = 0; j < board[i].length; j++) {
-        let color = DEAD_COLOR;
-        if(board[i][j] == 1) {
-            color = COLOR_PALETTE[Math.floor(Math.random() * COLOR_PALETTE.length - 1)];
-        }
-
-
-        surface.fillStyle = color;
-        surface.fillRect(j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      let color = DEAD_COLOR;
+      if (board[i][j] == 1) {
+        color = COLOR_PALETTE[Math.floor(Math.random() * COLOR_PALETTE.length - 1)];
       }
+
+
+      surface.fillStyle = color;
+      surface.fillRect(j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE);
     }
+  }
 }
 
 draw(context, gof.board);
@@ -117,7 +117,7 @@ window.onload = () => {
 
   const gameLoop = () => {
     if (isRunning) {
-        gof.update();
+      gof.update();
     }
     draw(context, gof.board);
     window.requestAnimationFrame(gameLoop);

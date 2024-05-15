@@ -30,7 +30,7 @@ const COLOR_PALETTES = [
     ],
 ];
 const COLOR_PALETTE = COLOR_PALETTES[0];
-const CELL_SIZE = 6;
+const CELL_SIZE = 10;
 const canvas = document.querySelector("#board");
 const ctx = canvas === null || canvas === void 0 ? void 0 : canvas.getContext("2d");
 if (canvas) {
